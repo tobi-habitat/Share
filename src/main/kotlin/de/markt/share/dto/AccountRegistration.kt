@@ -18,7 +18,7 @@ data class AccountRegistration(
         @JvmStatic
         fun validateTerms(generalStandardTermsAndConditions:Boolean) {
             check(generalStandardTermsAndConditions) {
-                "terms are not accepted"
+                "TERMS_NOT_ACCEPTED"
             }
         }
 
@@ -26,13 +26,17 @@ data class AccountRegistration(
         fun validatePassword(password: String, passwordConfirm: String) {
 
             val min = 6
-
             check(password.length >= min) {
-                "password is too short. At least $min characters. length=${password.length}"
+                "PASSWORD_TOO_SHORT"
+            }
+
+            val max = 150
+            check(password.length <= max) {
+                "PASSWORD_TOO_LONG"
             }
 
             check(password == passwordConfirm) {
-                "password are not equal"
+                "PASSWORD_NOT_EQUALS"
             }
 
             val sb = StringBuilder()
@@ -48,7 +52,7 @@ data class AccountRegistration(
             val regex = sb.toString().toRegex()
 
             check(regex.matches(password)) {
-                "password is not complex enough. Regex=$sb"
+                "PASSWORD_NOT_COMPLEX"
             }
         }
 
@@ -56,17 +60,17 @@ data class AccountRegistration(
         fun validateUsername(username: String) {
             val min = 4
             check(username.length >= min) {
-                "username is too short. At least $min characters. username=${username} length=${username.length}"
+                "USERNAME_TOO_SHORT"
             }
 
             val max = 100
             check(username.length <= max) {
-                "username is too long. Max $max characters. username=${username} length=${username.length}"
+                "USERNAME_TOO_LONG"
             }
 
             val regexAllowCharacters = "^[\\w_-]+".toRegex()
             check(regexAllowCharacters.matches(username)) {
-                "username has invalid characters. ${regexAllowCharacters.pattern} is allowed. Username=$username"
+                "USERNAME_ILLEGAL"
             }
         }
 
@@ -75,19 +79,19 @@ data class AccountRegistration(
 
             val min = 6
             check(email.length >= min) {
-                "email is too short. At least $min characters. email=${email} length=${email.length}"
+                "EMAIL_TOO_SHORT"
             }
 
             val max = 150
             check(email.length <= max) {
-                "email is too long. Maximum $max characters. email=${email} length=${email.length}"
+                "EMAIL_TOO_LONG"
             }
 
             val regexMail = "(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
                     .toRegex()
 
             check(regexMail.matches(email)) {
-                "email address does not equal to the General Email Regex (RFC 5322 Official Standard). email=${email}"
+                "EMAIL_RFC_5322"
             }
         }
     }
