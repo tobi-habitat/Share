@@ -47,7 +47,7 @@ class PublicityInsert(
                 "VALID_FROM_LESS_CURRENT_TIME"
             }
 
-            val diff = validFrom.time - validTo.time
+            val diff = validTo.time - validFrom.time
             check (diff >= 0) {
                 "VALID_TO_SMALLER_THAN_VALID_FROM"
             }
