@@ -43,7 +43,8 @@ class PublicityInsert(
             val sdf = SimpleDateFormat("yyyy-MM-dd")
             val nowWithoutTime = sdf.parse(sdf.format(Date()))
 
-            check(nowWithoutTime.before(validFrom)) {
+            val nowDiff = validFrom.time - nowWithoutTime.time
+            check(nowDiff >= 0) {
                 "VALID_FROM_LESS_CURRENT_TIME"
             }
 
@@ -53,7 +54,7 @@ class PublicityInsert(
             }
 
             val days = diff / (1000 * 60 * 60 * 24)
-            check(days >= 0 && days <= 30) {
+            check(days in 0..30) {
                 "VALID_FROM_VALID_TO_DIFFERENCE_TOO_BIG"
             }
         }
