@@ -28,6 +28,15 @@ class PublicityInsert(
 
         @JvmStatic
         fun validLatitudeAndLongitude(latitude: Double, longitude: Double) {
+
+            check(latitude.isFinite()) {
+                "INVALID_LATITUDE"
+            }
+
+            check(longitude.isFinite()) {
+                "INVALID_LONGITUDE"
+            }
+
             check(latitude <= 90 && latitude >= -90) {
                 "INVALID_LATITUDE"
             }
