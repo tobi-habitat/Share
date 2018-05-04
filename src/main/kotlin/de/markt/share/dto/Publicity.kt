@@ -43,7 +43,7 @@ class PublicityInsert(
             val sdf = SimpleDateFormat("yyyy-MM-dd")
             val nowWithoutTime = sdf.parse(sdf.format(Date()))
 
-            check(nowWithoutTime > validFrom) {
+            check(nowWithoutTime.after(validFrom)) {
                 "VALID_FROM_LESS_CURRENT_TIME"
             }
 
@@ -100,8 +100,6 @@ class PublicityInsert(
                     "INVALID_TAG"
                 }
             })
-
-
         }
     }
 }
