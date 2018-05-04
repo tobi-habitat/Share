@@ -28,11 +28,11 @@ class PublicityInsert(
 
         @JvmStatic
         fun validLatitudeAndLongitude(latitude: Double, longitude: Double) {
-            check(latitude > 90 || latitude < -90) {
+            check(latitude <= 90 && latitude >= -90) {
                 "INVALID_LATITUDE"
             }
 
-            check(longitude > 180 || longitude < -180) {
+            check(longitude <= 180 && longitude >= -180) {
                 "INVALID_LONGITUDE"
             }
         }
@@ -43,17 +43,17 @@ class PublicityInsert(
             val sdf = SimpleDateFormat("yyyy-MM-dd")
             val nowWithoutTime = sdf.parse(sdf.format(Date()))
 
-            check(nowWithoutTime.after(validFrom)) {
+            check(nowWithoutTime.before(validFrom)) {
                 "VALID_FROM_LESS_CURRENT_TIME"
             }
 
             val diff = validFrom.time - validTo.time
-            check (diff < 0) {
+            check (diff >= 0) {
                 "VALID_TO_SMALLER_THAN_VALID_FROM"
             }
 
             val days = diff / (1000 * 60 * 60 * 24)
-            check(days > 3) {
+            check(days >= 0 && days <= 30) {
                 "VALID_FROM_VALID_TO_DIFFERENCE_TOO_BIG"
             }
         }
@@ -86,11 +86,11 @@ class PublicityInsert(
 
         @JvmStatic
         fun validTags(tags: List<String>) {
-            check(tags.isEmpty()) {
+            check(!tags.isEmpty()) {
                 "NO_TAGS"
             }
 
-            check(tags.size > 5) {
+            check(tags.size <= 5) {
                 "TOO_MANY_TAGS"
             }
 
