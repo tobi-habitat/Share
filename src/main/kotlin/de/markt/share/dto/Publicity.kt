@@ -104,12 +104,15 @@ class PublicityInsert(
                 "TOO_MANY_TAGS"
             }
 
-            tags.forEach({
-                val regex = "^[\\w_-]+".toRegex()
-                check(regex.matches(it)) {
-                    "INVALID_TAG"
-                }
-            })
+            tags.forEach({validTag(it)})
+        }
+
+        @JvmStatic
+        fun validTag(tag: String) {
+            val regex = "^[\\w_-]+".toRegex()
+            check(regex.matches(tag)) {
+                "INVALID_TAG"
+            }
         }
     }
 }
