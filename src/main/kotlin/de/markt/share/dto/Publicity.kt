@@ -109,6 +109,18 @@ class PublicityInsert(
 
         @JvmStatic
         fun validTag(tag: String) {
+
+            val min = 3
+            check(tag.length >= min) {
+                "TAG_TOO_SHORT"
+            }
+
+            val max = 20
+            check(tag.length <= max) {
+                "TAG_TOO_LONG"
+            }
+
+
             val regex = "^[\\w_-]+".toRegex()
             check(regex.matches(tag)) {
                 "INVALID_TAG"
