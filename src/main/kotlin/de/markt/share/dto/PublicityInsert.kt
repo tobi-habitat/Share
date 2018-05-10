@@ -3,8 +3,6 @@ package de.markt.share.dto
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PublicityPreview(val thumbnail: Byte, val title: String, val text: String, val tags: List<String>, val date: Date, val lat: Float, val long: Float)
-
 class PublicityInsert(
         val image: ByteArray,
         val thumbnail: ByteArray,
