@@ -3,7 +3,7 @@ package de.markt.share.dto
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PublicityDetail(
+data class PublicityDetail(
         val image: ByteArray,
         val thumbnail: ByteArray,
         val lat: Double,
