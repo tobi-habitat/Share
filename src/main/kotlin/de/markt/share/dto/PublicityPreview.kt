@@ -2,7 +2,8 @@ package de.markt.share.dto
 
 import java.util.*
 
-data class PublicityPreview(val thumbnail: ByteArray,
+data class PublicityPreview(val uuid: String,
+                            val thumbnail: ByteArray,
                             val title: String,
                             val text: String,
                             val tags: List<String>,
