@@ -58,7 +58,7 @@ data class AccountRegistration(
 
         @JvmStatic
         fun validateUsername(username: String) {
-            val min = 4
+            val min = 3
             check(username.length >= min) {
                 "USERNAME_TOO_SHORT"
             }
