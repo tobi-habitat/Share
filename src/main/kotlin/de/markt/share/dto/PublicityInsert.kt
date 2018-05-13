@@ -26,6 +26,13 @@ data class PublicityInsert(
         @JvmStatic
         fun validLatitudeAndLongitude(latitude: Double, longitude: Double) {
 
+            check(!latitude.isNaN()) {
+                "INVALID_LATITUDE"
+            }
+
+            check(!longitude.isNaN()) {
+                "INVALID_LONGITUDE"
+            }
             check(latitude.isFinite()) {
                 "INVALID_LATITUDE"
             }
